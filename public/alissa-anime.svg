@@ -1,0 +1,78 @@
+<svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="200" height="300" fill="url(#bgGradient)"/>
+  
+  <!-- Character Body -->
+  <rect x="80" y="180" width="40" height="80" rx="8" fill="#2C3E50"/>
+  
+  <!-- Character Head -->
+  <ellipse cx="100" cy="70" rx="30" ry="35" fill="#FDBCB4"/>
+  
+  <!-- Hair (long silver/white) -->
+  <path d="M70 45C70 25 80 15 100 15C120 15 130 25 130 45V85C130 95 125 105 120 110L100 120L80 110C75 105 70 95 70 85V45Z" fill="#E8E8E8"/>
+  
+  <!-- Hair bangs -->
+  <path d="M75 50C75 35 85 30 100 30C115 30 125 35 125 50V60C125 45 115 40 100 40C85 40 75 45 75 50Z" fill="#E8E8E8"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="90" cy="65" rx="6" ry="8" fill="#FFFFFF"/>
+  <ellipse cx="110" cy="65" rx="6" ry="8" fill="#FFFFFF"/>
+  
+  <!-- Eye pupils -->
+  <ellipse cx="90" cy="67" rx="4" ry="6" fill="#8B4513"/>
+  <ellipse cx="110" cy="67" rx="4" ry="6" fill="#8B4513"/>
+  
+  <!-- Eye highlights -->
+  <ellipse cx="88" cy="64" rx="2" ry="3" fill="#FFFFFF"/>
+  <ellipse cx="108" cy="64" rx="2" ry="3" fill="#FFFFFF"/>
+  
+  <!-- Eyebrows -->
+  <path d="M83 58C85 56 90 56 93 58" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
+  <path d="M107 58C110 56 115 56 117 58" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Nose -->
+  <ellipse cx="100" cy="75" rx="1" ry="2" fill="#F4A460"/>
+  
+  <!-- Mouth -->
+  <path d="M95 82C97 85 103 85 105 82" stroke="#DC143C" stroke-width="2" stroke-linecap="round" fill="none"/>
+  
+  <!-- Blush -->
+  <ellipse cx="80" cy="78" rx="4" ry="3" fill="#FFB6C1" opacity="0.6"/>
+  <ellipse cx="120" cy="78" rx="4" ry="3" fill="#FFB6C1" opacity="0.6"/>
+  
+  <!-- Suit jacket -->
+  <rect x="75" y="180" width="50" height="70" rx="5" fill="#2C3E50"/>
+  
+  <!-- Shirt -->
+  <rect x="85" y="185" width="30" height="40" fill="#FFFFFF"/>
+  
+  <!-- Tie -->
+  <rect x="95" y="185" width="10" height="35" rx="2" fill="#8B0000"/>
+  
+  <!-- Suit buttons -->
+  <circle cx="88" cy="200" r="2" fill="#C0C0C0"/>
+  <circle cx="88" cy="215" r="2" fill="#C0C0C0"/>
+  
+  <!-- Arms -->
+  <rect x="60" y="185" width="15" height="45" rx="7" fill="#2C3E50"/>
+  <rect x="125" y="185" width="15" height="45" rx="7" fill="#2C3E50"/>
+  
+  <!-- Hands -->
+  <ellipse cx="67" cy="235" rx="5" ry="8" fill="#FDBCB4"/>
+  <ellipse cx="133" cy="235" rx="5" ry="8" fill="#FDBCB4"/>
+  
+  <!-- Small cat companion -->
+  <ellipse cx="140" cy="160" rx="8" ry="10" fill="#9370DB"/>
+  <ellipse cx="140" cy="155" rx="6" ry="6" fill="#9370DB"/>
+  <polygon points="135,150 138,145 141,150" fill="#9370DB"/>
+  <polygon points="139,150 142,145 145,150" fill="#9370DB"/>
+  <circle cx="138" cy="155" r="1" fill="#FFFFFF"/>
+  <circle cx="142" cy="155" r="1" fill="#FFFFFF"/>
+  
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0F8FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E6E6FA;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,159 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"  // Change to "sqlite" for local testing
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  username      String?   @unique
+  password      String?   // For credentials login
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Game-specific fields
+  totalScore    Int       @default(0)
+  gamesPlayed   Int       @default(0)
+  
+  accounts Account[]
+  sessions Session[]
+  gameScores GameScore[]
+  
+  // Multiplayer game relations
+  hostedGames   GameRoom[] @relation("GameHost")
+  gameParticipations GamePlayer[]
+  
+  // Friend system
+  sentRequests     FriendRequest[] @relation("SentRequests")
+  receivedRequests FriendRequest[] @relation("ReceivedRequests")
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+// Game-specific models
+model GameScore {
+  id          String   @id @default(cuid())
+  userId      String
+  score       Int
+  gameDate    DateTime @default(now())
+  category    String?  // trivia category
+  difficulty  String?  // easy, medium, hard
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("game_scores")
+}
+
+model TriviaQuestion {
+  id            String   @id @default(cuid())
+  question      String
+  correctAnswer String
+  wrongAnswers  String[] // Array of wrong answers
+  category      String
+  difficulty    String
+  createdAt     DateTime @default(now())
+  aiGenerated   Boolean  @default(false) // Track if question was AI-generated
+
+  @@map("trivia_questions")
+}
+
+// New models for multiplayer functionality
+model GameRoom {
+  id            String      @id @default(cuid())
+  hostId        String
+  gameCode      String      @unique // 6-digit code for joining
+  subject       String
+  difficulty    String
+  questionCount Int         @default(10)
+  timePerQuestion Int       @default(15) // seconds
+  status        String      @default("waiting") // waiting, active, finished
+  currentQuestion Int       @default(0)
+  createdAt     DateTime    @default(now())
+  startedAt     DateTime?
+  finishedAt    DateTime?
+  
+  host          User        @relation("GameHost", fields: [hostId], references: [id])
+  players       GamePlayer[]
+  questions     Json?       // Store questions as JSON
+  
+  @@map("game_rooms")
+}
+
+model GamePlayer {
+  id          String    @id @default(cuid())
+  gameId      String
+  userId      String
+  score       Int       @default(0)
+  joinedAt    DateTime  @default(now())
+  answers     Json?     // Store answers as JSON array
+  
+  game        GameRoom  @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id])
+  
+  @@unique([gameId, userId])
+  @@map("game_players")
+}
+
+model FriendRequest {
+  id          String   @id @default(cuid())
+  fromUserId  String
+  toUserId    String
+  status      String   @default("pending") // pending, accepted, declined
+  createdAt   DateTime @default(now())
+  respondedAt DateTime?
+  
+  fromUser    User     @relation("SentRequests", fields: [fromUserId], references: [id])
+  toUser      User     @relation("ReceivedRequests", fields: [toUserId], references: [id])
+  
+  @@unique([fromUserId, toUserId])
+  @@map("friend_requests")
+}
